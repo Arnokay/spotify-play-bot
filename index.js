@@ -9,7 +9,8 @@ const SpotifyApi = require("./spotify-api.js");
 const userAuthMap = require("./userAuthMap.js");
 const userMap = require("./userMap.js");
 
-const REDIRECT_URI = `http://${process.env.HOST}:${process.env.PORT}/callback`;
+// const REDIRECT_URI = `http://${process.env.HOST}:${process.env.PORT}/callback`;
+const  REDIRECT_URI = 'https://quiet-ridge-71067.herokuapp.com/callback';
 const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 

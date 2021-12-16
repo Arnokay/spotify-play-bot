@@ -37,7 +37,7 @@ bot.command("login", (ctx) => {
     username: ctx.message.chat.username,
     id: ctx.message.chat.id,
   });
-  const replyMessage = `Для логина перейдите по ссылке: http://${process.env.HOST}:${process.env.PORT}/login?uid=${ctx.message.chat.id}`;
+  const replyMessage = `Для логина перейдите по ссылке: https://quiet-ridge-71067.herokuapp.com/login?uid=${ctx.message.chat.id}`;
   ctx.reply(replyMessage);
 });
 

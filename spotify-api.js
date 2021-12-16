@@ -2,14 +2,14 @@ const querystring = require("querystring");
 const axios = require("axios");
 
 class SpotifyApi {
-  constructor(refreshToken) {
+  constructor(refreshToken, accessToken) {
     if (!refreshToken) {
       throw new Error("refresh token required");
     }
     this._refreshToken = refreshToken;
     this.clientId = process.env.SPOTIFY_CLIENT_ID;
     this.clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-    this.accessToken = null;
+    this.accessToken = accessToken;
     this.apiUrl = "https://api.spotify.com/v1";
     this.accountsApiUrl = "https://accounts.spotify.com/api";
     this.accountsApi = axios.create({
@@ -23,7 +23,7 @@ class SpotifyApi {
   }
 
   async addToQueue(songId) {
-    await this.get({
+    await this.post({
       url: "/me/player/queue",
       query: {
         uri: `spotify:track:${songId}`,
@@ -82,19 +82,20 @@ class SpotifyApi {
 
       return data.data;
     } catch (error) {
-      if (error.response.status === 401 && !isReconnect) {
+      if (error.response.status === 401 && isReconnect) {
         await this.refreshAccessToken();
         return this.get(data, true);
       } else {
+        console.log(error.response.data);
         throw new Error("INTERNAL_SERVER_ERROR");
       }
     }
   }
 
   async put(data, isReconnect) {
-    const { url, data, query } = data;
+    const { url, body, query } = data;
     try {
-      const data = await this.api.put(url, data, {
+      const data = await this.api.put(url, body, {
         params: query,
       });
 
@@ -110,9 +111,9 @@ class SpotifyApi {
   }
 
   async post(data, isReconnect) {
-    const { url, data, query } = data;
+    const { url, body, query } = data;
     try {
-      const data = await this.api.post(url, data, {
+      const data = await this.api.post(url, body, {
         params: query,
       });
 

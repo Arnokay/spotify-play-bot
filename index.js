@@ -70,7 +70,7 @@ app.get("/callback", async (req, res) => {
       accessData.data.access_token
     );
     userAuthMap.delete(accessData.data.scope);
-    res.sendStatus(200);
+    res.redirect('https://telegram.me/ArnokaySpotifyBot');
   } else {
     res.sendStatus(401);
   }

@@ -105,6 +105,7 @@ class SpotifyApi {
         await this.refreshAccessToken();
         return this.put(data, true);
       } else {
+        console.log(error.response.data);
         throw new Error("INTERNAL_SERVER_ERROR");
       }
     }
@@ -123,6 +124,7 @@ class SpotifyApi {
         await this.refreshAccessToken();
         return this.post(data, true);
       } else {
+        console.log(error.response.data);
         throw new Error("INTERNAL_SERVER_ERROR");
       }
     }

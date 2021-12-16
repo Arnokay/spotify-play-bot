@@ -18,7 +18,7 @@ npm install
 npm run dev 
 ```
 #### Then go to bot and write ``/login``.
-#### Go to link that you recieved, authorize using spotify.
+#### Go to link that you received, authorize using spotify.
 #### Congratulations!  Now you can control your music from telegram bot.
 
 ## Commands:

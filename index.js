@@ -9,8 +9,11 @@ const SpotifyApi = require("./spotify-api.js");
 const userAuthMap = require("./userAuthMap.js");
 const userMap = require("./userMap.js");
 
-// const REDIRECT_URI = `http://${process.env.HOST}:${process.env.PORT}/callback`;
-const REDIRECT_URI = "https://quiet-ridge-71067.herokuapp.com/callback";
+const REDIRECT_URI = `${
+  process.env.NODE_ENV === "production"
+    ? process.env.PROD_SERVER_PATH
+    : process.env.DEV_SERVER_PATH
+}/callback`;
 const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 
@@ -69,7 +72,7 @@ app.get("/callback", async (req, res) => {
       accessData.data.access_token
     );
     userAuthMap.delete(accessData.data.scope);
-    res.redirect("https://telegram.me/ArnokaySpotifyBot");
+    res.redirect(process.env.TELEGRAM_BOT_PATH);
   } else {
     res.sendStatus(401);
   }

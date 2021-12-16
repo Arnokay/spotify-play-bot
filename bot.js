@@ -1,8 +1,12 @@
 const { Telegraf } = require("telegraf");
 
-const userAuthMap = require("./userAuthMap.js");
 const userMap = require("./userMap.js");
 
+const SERVER_PATH = `${
+  process.env.NODE_ENV === "production"
+    ? process.env.PROD_SERVER_PATH
+    : process.env.DEV_SERVER_PATH
+}`;
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new Telegraf(TELEGRAM_BOT_TOKEN);
 
@@ -37,7 +41,7 @@ bot.command("login", (ctx) => {
     username: ctx.message.chat.username,
     id: ctx.message.chat.id,
   });
-  const replyMessage = `Для логина перейдите по ссылке: https://quiet-ridge-71067.herokuapp.com/login?uid=${ctx.message.chat.id}`;
+  const replyMessage = `Для логина перейдите по ссылке: ${SERVER_PATH}/login?uid=${ctx.message.chat.id}`;
   ctx.reply(replyMessage);
 });
 

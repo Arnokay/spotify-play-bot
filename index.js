@@ -10,7 +10,7 @@ const userAuthMap = require("./userAuthMap.js");
 const userMap = require("./userMap.js");
 
 // const REDIRECT_URI = `http://${process.env.HOST}:${process.env.PORT}/callback`;
-const  REDIRECT_URI = 'https://quiet-ridge-71067.herokuapp.com/callback';
+const REDIRECT_URI = "https://quiet-ridge-71067.herokuapp.com/callback";
 const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 
@@ -23,8 +23,7 @@ app.get("/login", (req, res) => {
   const uid = Number(req.query.uid);
   const state = Math.random().toString(36).substr(2, 5);
   userAuthMap.set(state, uid);
-  const scope =
-    "ugc-image-upload user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-private user-read-email user-follow-modify user-follow-read user-library-modify user-library-read streaming app-remote-control user-read-playback-position user-top-read user-read-recently-played playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public";
+  const scope = "user-modify-playback-state";
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
       querystring.stringify({
@@ -70,7 +69,7 @@ app.get("/callback", async (req, res) => {
       accessData.data.access_token
     );
     userAuthMap.delete(accessData.data.scope);
-    res.redirect('https://telegram.me/ArnokaySpotifyBot');
+    res.redirect("https://telegram.me/ArnokaySpotifyBot");
   } else {
     res.sendStatus(401);
   }
